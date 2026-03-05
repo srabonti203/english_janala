@@ -4,3 +4,7 @@
 .english-font {
   font-family: "Poppins", sans-serif;
 }
+.active {
+  background-color: rgb(8, 8, 155);
+  color: white;
+}
