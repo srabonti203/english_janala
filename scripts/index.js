@@ -12,7 +12,7 @@ const manageSpinner = (status) => {
     document.getElementById("word-level-cart").classList.remove("hidden");
   }
 };
-
+//2. all lessons are loaded using this function
 const loadData = () => {
   const url = "https://openapi.programming-hero.com/api/levels/all";
   fetch(url)
@@ -23,25 +23,28 @@ const removeActiveClass = () => {
   let lessonBtns = document.querySelectorAll(".lesson-btn");
   lessonBtns.forEach((btn) => btn.classList.remove("active"));
 };
+//4.when wordLevel was onclick from the lesson button an id was passed and catched using this function
 const wordLevel = (id) => {
   manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   fetch(url)
     .then((res) => res.json())
     .then((json) => {
-      removeActiveClass();
+      removeActiveClass(); //remove active class form all other btn
       let selected = document.getElementById(`lesson-btn-${id}`);
-      selected.classList.add("active");
+      selected.classList.add("active"); //adds active class only on the active btn
       displayWordLevel(json.data);
     });
 };
 
+//6.when someone wants to see the info of a perticular word and click on the ? icon this function loads the word details
 const loadWordDetails = async (id) => {
   const url = `https://openapi.programming-hero.com/api/word/${id}`;
   const res = await fetch(url);
   const details = await res.json();
   displayWordDetails(details.data);
 };
+//7.and this function shows the word details using a modal
 const displayWordDetails = (word) => {
   const detailBox = document.getElementById("detail-box");
   // console.log(word);
@@ -67,7 +70,7 @@ const displayWordDetails = (word) => {
    `;
   document.getElementById("word_modal").showModal();
 };
-
+//5.and that lesson is shown using this function
 const displayWordLevel = (words) => {
   const wordLevelCart = document.getElementById("word-level-cart");
   wordLevelCart.innerHTML = "";
@@ -105,6 +108,8 @@ const displayWordLevel = (words) => {
   });
   manageSpinner(false);
 };
+
+//3.lessons are displayed using this function in the form of lesson 1,lesson 2 etc....
 const displayData = (lessons) => {
   //     1.get btn-div
   const levelContainer = document.getElementById("level-container");
@@ -125,4 +130,4 @@ const displayData = (lessons) => {
     levelContainer.appendChild(levelBtn);
   }
 };
-loadData();
+loadData(); //1.all the functionality starts from here
