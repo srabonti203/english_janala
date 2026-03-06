@@ -1,3 +1,8 @@
+const creatElements = (arr) => {
+  const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
+  return htmlElements.join(" ");
+};
+
 const loadData = () => {
   const url = "https://openapi.programming-hero.com/api/levels/all";
   fetch(url)
@@ -19,6 +24,39 @@ const wordLevel = (id) => {
       displayWordLevel(json.data);
     });
 };
+
+const loadWordDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayWordDetails(details.data);
+};
+const displayWordDetails = (word) => {
+  const detailBox = document.getElementById("detail-box");
+  // console.log(word);
+  detailBox.innerHTML = `
+    <h2 class="font-bold text-2xl">
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i
+              >:${word.pronunciation} )
+            </h2>
+            <div class="space-y-3">
+              <h2 class="font-bold">Meaning</h2>
+              <p>${word.meaning}</p>
+            </div>
+            <div class="space-y-3">
+              <h2 class="font-bold">Example</h2>
+              <p>${word.sentence}</p>
+            </div>
+            <div class="space-y-3">
+            <h2 class="font-bold">Synonyms</h2>
+            <div class="space-x-3 ">
+              ${creatElements(word.synonyms)}
+            </div>
+            </div>
+   `;
+  document.getElementById("word_modal").showModal();
+};
+
 const displayWordLevel = (words) => {
   const wordLevelCart = document.getElementById("word-level-cart");
   wordLevelCart.innerHTML = "";
@@ -35,17 +73,6 @@ const displayWordLevel = (words) => {
         </div>
     `;
   }
-  const loadWordDetails = async (id) => {
-    const url = `https://openapi.programming-hero.com/api/word/${id}`;
-    const res = await fetch(url);
-    const details = await res.json();
-    displayWordDetails(details.data);
-  };
-  const displayWordDetails = (word) => {
-    const detailBox = document.getElementById("detail-box");
-    detailBox.innerHTML = "hi im from js";
-    document.getElementById("word_modal").showModal();
-  };
   words.forEach((word) => {
     let wordCart = document.createElement("div");
     wordCart.innerHTML = `
