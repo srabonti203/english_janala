@@ -1,3 +1,9 @@
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 //this function dynamically shows synonyms when it is called
 const creatElements = (arr) => {
   const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
@@ -104,7 +110,7 @@ const displayWordLevel = (words) => {
           <p class="font-medium text-2xl bangla-font">${word.meaning ? word.meaning : "meaning not found"}/${word.pronunciation ? word.pronunciation : "pronuntiation not found"}</p>
           <div class="flex justify-between items-center">
             <button onclick="loadWordDetails(${word.id})" class="btn btn-soft btn-primary"><i class="fa-solid fa-circle-question"></i></button>
-            <button class="btn btn-soft btn-primary"><i class="fa-solid fa-microphone"></i></button>
+            <button onclick="pronounceWord('${word.word}')" class="btn btn-soft btn-primary"><i class="fa-solid fa-microphone"></i></button>
           </div>
         </div>
     `;
