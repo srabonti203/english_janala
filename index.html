@@ -131,7 +131,7 @@
             class="border-gray-400 rounded-md px-5 py-1 w-70"
             placeholder="Enter Password"
           /><br />
-          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-primary">Submit</button>
         </div>
         <div class="hero-right flex-1">
           <img src="./assets/hero-student.png" alt="" class="w-full h-full" />
@@ -152,6 +152,25 @@
       <!-- loading -->
       <section id="spinner" class="flex justify-center items-center hidden">
         <span class="loading loading-spinner text-secondary"></span>
+      </section>
+
+      <!-- search section  -->
+      <section class="flex justify-center items-center">
+        <div class="join">
+          <div>
+            <label class="input validator join-item">
+              <input
+                id="input-search"
+                type="text"
+                placeholder="Search Vocabolary"
+                required
+              />
+            </label>
+          </div>
+          <button id="btn-search" class="btn btn-primary join-item">
+            Search
+          </button>
+        </div>
       </section>
 
       <!-- lesson cart section  -->

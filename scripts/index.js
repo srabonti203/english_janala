@@ -1,8 +1,10 @@
+//this function dynamically shows synonyms when it is called
 const creatElements = (arr) => {
   const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
   return htmlElements.join(" ");
 };
 
+//this function manages the spinner
 const manageSpinner = (status) => {
   if (status == true) {
     document.getElementById("spinner").classList.remove("hidden");
@@ -19,6 +21,8 @@ const loadData = () => {
     .then((res) => res.json())
     .then((json) => displayData(json.data));
 };
+
+//this function is used for removing active class from the lesson btn that are not clicked
 const removeActiveClass = () => {
   let lessonBtns = document.querySelectorAll(".lesson-btn");
   lessonBtns.forEach((btn) => btn.classList.remove("active"));
@@ -131,3 +135,19 @@ const displayData = (lessons) => {
   }
 };
 loadData(); //1.all the functionality starts from here
+
+//search btn functionality
+document.getElementById("btn-search").addEventListener("click", () => {
+  removeActiveClass();
+  const input = document.getElementById("input-search");
+  const inputVal = input.value.trim().toLowerCase();
+  fetch("https://openapi.programming-hero.com/api/words/all")
+    .then((res) => res.json())
+    .then((data) => {
+      const allWords = data.data;
+      const filterWords = allWords.filter((word) =>
+        word.word.toLowerCase().includes(inputVal),
+      );
+      displayWordLevel(filterWords);
+    });
+});
